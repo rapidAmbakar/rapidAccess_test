@@ -41,22 +41,32 @@ class Helloworld(Resource):
 class userImages(Resource):
     
     def post(self):
+        
+        tot_imgs = len(request.form) - 2
         print("POST -------------------------------------------------- CALLED\n\n")
-        print("Total Len : ", len(request.form),"\n")
-        print(list(request.form))
+        #print("Total Len : ", len(request.form),"\n")
+        print()
         print("\n\n")
         try:
             eid = request.form.get("employee_id",888)
-            ename = request.form.get("employee_id","EMPTY")
-            imgstring = request.form.get('images_0','343')
-            print(imgstring[:10],"\n\n")
-            imgstring = imgstring.replace("data:image/jpeg;base64,",'')
-            imgdata = base64.decodebytes(imgstring.encode('ascii'))
-
-            filename = 'Imgs/',eid,'_',ename,'/1.jpeg'  # I assume you have a way of picking unique filenames
-            with open(filename, 'wb') as f:
-                print("## in save")
-                f.write(imgdata)
+            ename = request.form.get("employee_name","EMPTY")
+            
+            
+            for i in range(tot_imgs):
+                imgstring = request.form.get('images_'+str(i),'343')
+                
+                imgstring = imgstring.replace("data:image/jpeg;base64,",'')
+                imgdata = base64.decodebytes(imgstring.encode('ascii'))
+                
+                
+                filename = "Employee/"+str(eid)+"_"+str(ename)
+                
+                if not os.path.exists(filename):
+                    os.makedirs(filename)
+                
+                with open(filename+"/"+str(i)+".jpeg", 'wb') as f:
+                    print("## in save")
+                    f.write(imgdata)
     
             #with open("imageFlask.jpeg",'wb') as f:
             #    f.write(file)
@@ -67,8 +77,8 @@ class userImages(Resource):
             print('Error in Writing file ',e)
         return {
             "status":"200",
-            "employee_id": eid,
-            "employee_name": ename
+            "employee_id": request.form.get("employee_id",888),
+            "employee_name": request.form.get("employee_name","EMPTY")
             }
     
     

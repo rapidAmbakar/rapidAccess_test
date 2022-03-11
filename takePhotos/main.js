@@ -65,8 +65,8 @@ function make_make_imgs() {
 async function sendFiles() {
     let data = new FormData();
 
-    data.append("employee_id",emp_id)
-    data.append("employee_name",emp_name)
+    data.append("employee_id",emp_id.value)
+    data.append("employee_name",emp_name.value)
     
     for (var i = 0; i < imgArry.length; i++) {
         //let file = imgArry.item(i);
