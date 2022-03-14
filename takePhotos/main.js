@@ -5,6 +5,9 @@ let canvas = document.querySelector("#canvas");
 
 let emp_id = document.getElementById("emp_id");
 let emp_name = document.getElementById("emp_name");
+let sysStatus = document.getElementById("status");
+
+let focussCamera = document.getElementById("focussCamera");
 
 let total_clicks = 0
 let imgArry = []
@@ -20,27 +23,55 @@ startCam();
 camera_button.addEventListener('click', async function() {
     let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
     video.srcObject = stream;
-});
-*/
+});*/
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+ }
+
 function printname(){
     console.log("Hi   -", emp_id.value, emp_name.value)
 }
 
-click_button.addEventListener('click', function() {
-    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-    let image_data_url = canvas.toDataURL('image/jpeg');
-    // data url of the image
-    //console.log(image_data_url);
+function checkInputs(){
+    eid = emp_id.value
+    ename = emp_name.value 
+    if(eid == "" || ename == ""){
+        alert("Please Enter ID and Name");
+        return 0
+    }
+    return 1
+}
+
+click_button.addEventListener('click', async function() {
+    
+    if(checkInputs()){
+        alert("Look at the Camera and Move your Head");
+        sysStatus.innerHTML = "Please Wait!"
+        focussCamera.style.display = "block";
+        for(i=0;i<15;i++){
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+            let image_data_url = canvas.toDataURL('image/jpeg');
+            imgArry.push(image_data_url);
+            total_clicks++; 
+            make_make_imgs();
+            await sleep(250);
+        }    
+        sendFiles();
+        sysStatus.innerHTML = "Thank you!"
+        focussCamera.style.display = "none";
+    }
+    /*
     printname()
-    total_clicks++;
+    
     if (total_clicks > 10) {
         alert("Uploading Files");
         sendFiles();
     }
+    */
     
-    imgArry.push(image_data_url);
-    make_make_imgs();
-    sendFiles();
+    
+    // sendFiles();
     // console.log(imgArry);
 });
 
@@ -78,7 +109,7 @@ async function sendFiles() {
     }
     console.log(data, config);
 //    const res = await axios.post('http://localhost:3000/api/images', data, config);
-    const res = await axios.post('http://localhost:5000/api/images', data, config);
+    const res = await axios.post('https://192.168.1.140:5000/api/images', data, config);
 
     console.log(res);
 }

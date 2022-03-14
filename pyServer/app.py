@@ -89,7 +89,8 @@ api.add_resource(Helloworld, '/',
 api.add_resource(userImages, '/api/images')
 
 
-
-
-app.run(debug=True,
-        host="192.168.1.140")
+if __name__ == '__main__':
+    context = ("/home/ad.rapidops.com/pushkar.ambatkar/local_ssl/localhost.pem", "/home/ad.rapidops.com/pushkar.ambatkar/local_ssl/localhost.key")
+    app.run(debug=True,
+            host="0.0.0.0",
+            ssl_context=context)
