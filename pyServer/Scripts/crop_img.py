@@ -6,9 +6,6 @@ import cv2
 categories = os.listdir("rapidFaces_interns")
 # print (categories)
 
-cascade_path = "haarcascade_frontalface_default.xml"
-casecade = cv2.CascadeClassifier(cascade_path)
-
 def crop_face(img_path):
     crop_face_Image = (0,255,0)
     try:
