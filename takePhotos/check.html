@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+    
+
+        <!-------------------------------------------- CAMERA CAPTURE ---------------------------------------------->
+        <div class="center">
+            <video id="video" width="640" height="480" autoplay></video>
+            <canvas id="canvas" width="640" height="480" allow="camera;microphone" hidden></canvas><br>
+            <div id="img-container"></div>
+        </div>
+
+        <!-------------------------------------------- MODEL PREDICTION ---------------------------------------------->
+        <div class="center">
+            <div class="photo-pred">
+                Hello
+            </div>
+        </div>
+
+        <!-------------------------------------------- BUTTON OF CHECK THE PREDICTION ---------------------------------------------->
+        <div class="emp-Container">
+            <div class="emp-Btn">
+                <button id="click-photo" class="btn-click">CLICK</button>
+                <button id="photo-true">Correct</button>
+                <button id="photo-false">Incorrect</button>
+            <h2 id="status"></h2>
+        </div>
+
+
+        <script src="check.js"></script>
+    </body>
+</html>

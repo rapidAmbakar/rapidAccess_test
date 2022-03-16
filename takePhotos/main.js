@@ -49,7 +49,7 @@ click_button.addEventListener('click', async function() {
         alert("Look at the Camera and Move your Head");
         sysStatus.innerHTML = "Please Wait!"
         focussCamera.style.display = "block";
-        for(i=0;i<15;i++){
+        for(i=0;i<30;i++){
             canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
             let image_data_url = canvas.toDataURL('image/jpeg');
             imgArry.push(image_data_url);
